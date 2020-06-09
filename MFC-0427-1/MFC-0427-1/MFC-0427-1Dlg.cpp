@@ -76,9 +76,9 @@ BEGIN_MESSAGE_MAP(CMFC04271Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_LBUTTONDOWN()
-	ON_BN_CLICKED(IDC_BUTTON1, &CMFC04271Dlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CMFC04271Dlg::OnBnClickedButton2)
 	ON_LBN_SELCHANGE(IDC_LIST1, &CMFC04271Dlg::OnSelchangeList1)
+	ON_BN_CLICKED(IDOK, &CMFC04271Dlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -209,18 +209,29 @@ void CMFC04271Dlg::OnBnClickedButton2()
 	int num = Lbox.GetCurSel(); // 取得当前所选记录号
 	Lbox.DeleteString(num);// 删除列表框A的第num项字符串 
 	Lbox.InsertString(num, str);    // 把缓存str中的字符串插入到列表框A的
-
 	CFileDialog cfd(false);
-	//int r = cfd.DoModal();
-	//if (r == IDOK) {
-		ofstream ofs(cfd.GetPathName());
-		ofs << CT2A(str.GetString()) << endl;
-	//}
-	
-
 }
 
 CMFC04271Dlg::~CMFC04271Dlg()
 {
+	
+}
 
+
+void CMFC04271Dlg::OnBnClickedOk()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CFileDialog cfd(false);
+	int r = cfd.DoModal();
+	if (r == IDOK) {
+		CString s;
+		ofstream ofs(cfd.GetPathName());
+		s = "";
+		int n = Lbox.GetCount();
+		for (int i = 0; i < n; i++) {
+			Lbox.GetText(i, s);
+			ofs << CT2A(s) << endl;
+		}	
+	}
+	CDialogEx::OnOK();
 }

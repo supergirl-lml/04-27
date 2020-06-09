@@ -38,7 +38,7 @@ public:
 	CListBox Lbox;
 	CString Name;
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnSelchangeList1();
+	afx_msg void OnBnClickedOk();
 };
